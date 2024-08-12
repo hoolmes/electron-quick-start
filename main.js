@@ -3,11 +3,20 @@ const {app, BrowserWindow} = require('electron')
 const path = require('node:path')
 const express = require('express');
 const http = require('http');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const server = express();
 const port = 3332;
 // Serve static files from the dist directory
 server.use(express.static(path.join(__dirname, 'dist')));
+
+server.use('/api', createProxyMiddleware({
+    target: 'http://fenbao.icqgm.com',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api': '',
+    },
+}));
 
 server.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
