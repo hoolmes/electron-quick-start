@@ -25,7 +25,7 @@
     "appId": "com.example.yourapp",
     "productName": "YourApp",
     "directories": {
-      "output": "dist"
+      "output": "release/${version}"
     },
     "win": {
       "target": "nsis"
@@ -36,5 +36,8 @@
       "main.js",
       "index.html"
     ]
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
